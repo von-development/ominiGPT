@@ -30,5 +30,5 @@ Configure suas credenciais OMIE (api_key e api_secret) conforme fornecido no 'om
 Especifique a chamada de API desejada e os parâmetros necessários para realizar consultas.
 OmniGPT processará e retornará as informações solicitadas de forma precisa e atualizada.
 Contribuição
-Contribuições são bem-vindas! Se você deseja colaborar com o desenvolvimento do OmnieGPT, sinta-se à vontade para fazer um fork deste repositório e enviar um pull request.
+Contribuições são bem-vindas! Se você deseja colaborar com o desenvolvimento do OmnieGPT
 
