@@ -1,0 +1,140 @@
+openapi: 3.1.0
+info:
+  title: Omie API
+  description: API for listing accounts payable from Omie.
+  version: 1.0.0
+servers:
+  - url: https://app.omie.com.br/api/v1/financas/contapagar/
+    description: Omie API Server
+paths:
+  /:
+    post:
+      operationId: listarContasPagar
+      summary: List accounts payable
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                call:
+                  type: string
+                  example: ListarContasPagar
+                  description: "Name of the API call"
+                app_key:
+                  type: string
+                  example: 3568546098117
+                  description: "API application key"
+                app_secret:
+                  type: string
+                  example: d063098e99c6535528c08a26ab77aff2
+                  description: "API application secret"
+                param:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      pagina:
+                        type: integer
+                        example: 1
+                        description: "Number of the page to be queried"
+                      registros_por_pagina:
+                        type: integer
+                        example: 20
+                        description: "Number of records per page"
+                      apenas_importado_api:
+                        type: string
+                        example: N
+                        description: "Filter to show only records imported via API (Y/N)"
+                      ordem_descrescente:
+                        type: string
+                        example: N
+                        description: "Show results in descending order (Y/N)"
+                      filtrar_por_data_de:
+                        type: string
+                        example: "01/07/2024"
+                        description: "Start date for filtering records (dd/mm/yyyy)"
+                      filtrar_por_data_ate:
+                        type: string
+                        example: "31/07/2024"
+                        description: "End date for filtering records (dd/mm/yyyy)"
+                      filtrar_apenas_inclusao:
+                        type: string
+                        example: N
+                        description: "Filter to show only newly included records (Y/N)"
+                      filtrar_apenas_alteracao:
+                        type: string
+                        example: N
+                        description: "Filter to show only altered records (Y/N)"
+                      filtrar_por_emissao_de:
+                        type: string
+                        example: "01/07/2024"
+                        description: "Start date for filtering by issuance date (dd/mm/yyyy)"
+                      filtrar_por_registro_de:
+                        type: string
+                        example: "01/07/2024"
+                        description: "Start date for filtering by record date (dd/mm/yyyy)"
+                      filtrar_por_emissao_ate:
+                        type: string
+                        example: "31/07/2024"
+                        description: "End date for filtering by issuance date (dd/mm/yyyy)"
+                      filtrar_por_registro_ate:
+                        type: string
+                        example: "31/07/2024"
+                        description: "End date for filtering by record date (dd/mm/yyyy)"
+                      filtrar_conta_corrente:
+                        type: integer
+                        description: "Filter by account code"
+                      filtrar_cliente:
+                        type: integer
+                        description: "Filter by client code"
+                      filtrar_por_cpf_cnpj:
+                        type: string
+                        example: "12345678900"
+                        description: "Filter by CPF/CNPJ of the supplier (numbers only)"
+                      filtrar_por_status:
+                        type: string
+                        example: "ATRASADO"
+                        description: "Filter by status (CANCELADO, PAGO, LIQUIDADO, EMABERTO)"
+                      filtrar_por_projeto:
+                        type: integer
+                        description: "Filter by project code"
+                      filtrar_por_vendedor:
+                        type: integer
+                        description: "Filter by seller code"
+                      exibir_obs:
+                        type: string
+                        example: N
+                        description: "Show observations in the records (Y/N)"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: "Response status"
+                  contas_pagar:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        codigo_lancamento_omie:
+                          type: integer
+                          description: "OMIE transaction code"
+                        data_vencimento:
+                          type: string
+                          description: "Due date of the account"
+                        valor_documento:
+                          type: number
+                          description: "Document value"
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
